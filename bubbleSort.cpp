@@ -33,13 +33,7 @@ int main()
             if (event.key.code == Keyboard::Escape)
                 window.close();
         }
-
-        window.clear();
-        for (auto i = 0; i < size; i++) {
-            window.draw(rects[i]);
-        }
-        window.display();
-
+        
         if (!end) {
             for (int i = 0; i < size - 1; i++) {
                 for (int j = 0; j < size - i - 1; j++) {
@@ -48,6 +42,11 @@ int main()
                         temp.setSize(rects[j].getSize());
                         rects[j].setSize(rects[j + 1].getSize());
                         rects[j + 1].setSize(temp.getSize());
+                        window.clear();
+                        for (auto i = 0; i < size; i++) {
+                            window.draw(rects[i]);
+                        }
+                        window.display();
                     }
                 }
             }
