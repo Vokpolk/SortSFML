@@ -40,14 +40,12 @@ int main()
             RectangleShape key;
             int i = 0;
             for(int j = 1; j < size; j++) {
-                key = rects[j];//.getSize().y;//data[j];
+                key = rects[j];
                 i = j - 1;
                 while(i >= 0 && rects[i].getSize().y > key.getSize().y) {
                     rects[i + 1].setSize(rects[i].getSize());
-                    //data[i + 1] = data[i];
                     i = i - 1;
                     rects[i + 1].setSize(key.getSize());
-                    //data[i + 1] = key;
                     window.clear();
                     for (auto i = 0; i < size; i++) {
                         window.draw(rects[i]);
