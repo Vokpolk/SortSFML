@@ -4,7 +4,7 @@ using namespace sf;
 
 int main()
 {
-    RenderWindow window(VideoMode(1024, 768), "Bubble sort");
+    RenderWindow window(VideoMode(1024, 768), "Sort");
 
     //array
     srand(time(0));
@@ -33,8 +33,33 @@ int main()
             if (event.key.code == Keyboard::Escape)
                 window.close();
         }
-        
+
+
+        //insertion sort
         if (!end) {
+            RectangleShape key;
+            int i = 0;
+            for(int j = 1; j < size; j++) {
+                key = rects[j];//.getSize().y;//data[j];
+                i = j - 1;
+                while(i >= 0 && rects[i].getSize().y > key.getSize().y) {
+                    rects[i + 1].setSize(rects[i].getSize());
+                    //data[i + 1] = data[i];
+                    i = i - 1;
+                    rects[i + 1].setSize(key.getSize());
+                    //data[i + 1] = key;
+                    window.clear();
+                    for (auto i = 0; i < size; i++) {
+                        window.draw(rects[i]);
+                    }
+                    window.display();
+                }
+            }
+        }
+        end = true;
+
+        //bubble sort
+        /*if (!end) {
             for (int i = 0; i < size - 1; i++) {
                 for (int j = 0; j < size - i - 1; j++) {
                     if (rects[j].getSize().y > rects[j + 1].getSize().y) {
@@ -51,7 +76,7 @@ int main()
                 }
             }
         }
-        end = true;
+        end = true;*/
     }
 
     return 0;
