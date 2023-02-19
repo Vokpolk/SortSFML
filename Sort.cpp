@@ -1,10 +1,47 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 using namespace std;
 using namespace sf;
+
+enum Sort {
+    SortBubble = 1,
+    SortInsertion
+};
 
 int main()
 {
     RenderWindow window(VideoMode(1024, 768), "Sort");
+
+
+    int numOfSort = 0;
+    int countOfSorts = 2;
+
+    cout << "1. Bubble sort" << endl;
+    cout << "2. Insertion sort" << endl;
+
+    cout << "Choose sort: ";
+
+    while(cin >> numOfSort) {
+        if (numOfSort > 0 && numOfSort <= countOfSorts) {
+            break;
+        } else {
+            cout << "Incorrect input! Try again." << endl;
+            cout << "Choose sort: ";
+        }
+    }
+
+    Sort sort;
+    switch (numOfSort) {
+    case 1:
+        sort = SortBubble;
+        break;
+    case 2:
+        sort = SortInsertion;
+        break;
+    default:
+        break;
+    }
+
 
     //array
     srand(time(0));
@@ -34,37 +71,22 @@ int main()
                 window.close();
         }
 
+        //quick sort
+        
+
 
         //insertion sort
-        if (!end) {
-            RectangleShape key;
-            int i = 0;
-            for(int j = 1; j < size; j++) {
-                key = rects[j];
-                i = j - 1;
-                while(i >= 0 && rects[i].getSize().y > key.getSize().y) {
-                    rects[i + 1].setSize(rects[i].getSize());
-                    i = i - 1;
-                    rects[i + 1].setSize(key.getSize());
-                    window.clear();
-                    for (auto i = 0; i < size; i++) {
-                        window.draw(rects[i]);
-                    }
-                    window.display();
-                }
-            }
-        }
-        end = true;
-
-        //bubble sort
-        /*if (!end) {
-            for (int i = 0; i < size - 1; i++) {
-                for (int j = 0; j < size - i - 1; j++) {
-                    if (rects[j].getSize().y > rects[j + 1].getSize().y) {
-                        RectangleShape temp;
-                        temp.setSize(rects[j].getSize());
-                        rects[j].setSize(rects[j + 1].getSize());
-                        rects[j + 1].setSize(temp.getSize());
+        if (sort == SortInsertion) {
+            if (!end) {
+                RectangleShape key;
+                int i = 0;
+                for(int j = 1; j < size; j++) {
+                    key = rects[j];
+                    i = j - 1;
+                    while(i >= 0 && rects[i].getSize().y > key.getSize().y) {
+                        rects[i + 1].setSize(rects[i].getSize());
+                        i = i - 1;
+                        rects[i + 1].setSize(key.getSize());
                         window.clear();
                         for (auto i = 0; i < size; i++) {
                             window.draw(rects[i]);
@@ -74,7 +96,30 @@ int main()
                 }
             }
         }
-        end = true;*/
+
+        //bubble sort
+        if (sort == SortBubble) {
+            if (!end) {
+                for (int i = 0; i < size - 1; i++) {
+                    for (int j = 0; j < size - i - 1; j++) {
+                        if (rects[j].getSize().y > rects[j + 1].getSize().y) {
+                            RectangleShape temp;
+                            temp.setSize(rects[j].getSize());
+                            rects[j].setSize(rects[j + 1].getSize());
+                            rects[j + 1].setSize(temp.getSize());
+                            window.clear();
+                            for (auto i = 0; i < size; i++) {
+                                window.draw(rects[i]);
+                            }
+                            window.display();
+                        }
+                    }
+                }
+            }
+        }
+
+
+        end = true;
     }
 
     return 0;
