@@ -1,17 +1,13 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
-using namespace std;
-using namespace sf;
+#include "main.h"
+#include "sort.h"
 
-enum Sort {
-    SortBubble = 1,
-    SortInsertion
-};
+CSort::CSort() {
+    window.create(VideoMode(1024, 768), "Sort");
+    end = false;
+    draw();
+}
 
-int main()
-{
-    RenderWindow window(VideoMode(1024, 768), "Sort");
-
+void CSort::draw() {
 
     int numOfSort = 0;
     int countOfSorts = 2;
@@ -42,27 +38,22 @@ int main()
         break;
     }
 
-
     //array
     srand(time(0));
-    const int size = 339;
-    int arr[size];
     for (auto i = 0; i < size; i++) {
         arr[i] = rand() % 699 + 1;
     }
 
     //rectangles
-    RectangleShape rects[size];
     for (auto i = 0; i < size; i++) {
         rects[i].setSize(Vector2f(2, arr[i]));
         rects[i].setPosition(5 + 3 * i, 740);
         rects[i].setRotation(180);
     }
 
-    bool end = false;
+    end = false;
     while (window.isOpen())
     {
-        Event event;
         while (window.pollEvent(event))
         {
             if (event.type == Event::Closed)
@@ -70,10 +61,6 @@ int main()
             if (event.key.code == Keyboard::Escape)
                 window.close();
         }
-
-        //quick sort
-        
-
 
         //insertion sort
         if (sort == SortInsertion) {
@@ -117,10 +104,7 @@ int main()
                 }
             }
         }
-
-
+        
         end = true;
     }
-
-    return 0;
 }
