@@ -3,7 +3,7 @@
 enum Sort {
     SortBubble = 1,
     SortInsertion,
-    SortQuick,
+    SortSelection,
     SortMax
 };
 

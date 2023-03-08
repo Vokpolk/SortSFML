@@ -10,10 +10,11 @@ CSort::CSort() {
 void CSort::draw() {
 
     int numOfSort = 0;
-    int countOfSorts = 2;
+    int countOfSorts = SortMax - 1;
 
     cout << "1. Bubble sort" << endl;
     cout << "2. Insertion sort" << endl;
+    cout << "3. Selection sort" << endl;
 
     cout << "Choose sort: ";
 
@@ -33,6 +34,9 @@ void CSort::draw() {
         break;
     case 2:
         sort = SortInsertion;
+        break;
+    case 3:
+        sort = SortSelection;
         break;
     default:
         break;
@@ -61,16 +65,34 @@ void CSort::draw() {
             if (event.key.code == Keyboard::Escape)
                 window.close();
         }
+        //selection sort
+        if (sort == SortSelection) {
+            if (!end) {
+                RectangleShape tmp;
+                for (int i = 1; i < size; i++) {
+                    for (int j = i; j > 0 && rects[j - 1].getSize().y > rects[j].getSize().y; j--) {
+                        tmp.setSize(rects[j].getSize());
+                        rects[j].setSize(rects[j - 1].getSize());
+                        rects[j - 1].setSize(tmp.getSize());
+                        window.clear();
+                        for (auto i = 0; i < size; i++) {
+                            window.draw(rects[i]);
+                        }
+                        window.display();
+                    }
+                }
+            }
+        }
 
         //insertion sort
         if (sort == SortInsertion) {
             if (!end) {
                 RectangleShape key;
                 int i = 0;
-                for(int j = 1; j < size; j++) {
+                for (int j = 1; j < size; j++) {
                     key = rects[j];
                     i = j - 1;
-                    while(i >= 0 && rects[i].getSize().y > key.getSize().y) {
+                    while (i >= 0 && rects[i].getSize().y > key.getSize().y) {
                         rects[i + 1].setSize(rects[i].getSize());
                         i = i - 1;
                         rects[i + 1].setSize(key.getSize());
