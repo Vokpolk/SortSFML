@@ -15,6 +15,7 @@ void CSort::draw() {
     cout << "1. Bubble sort" << endl;
     cout << "2. Insertion sort" << endl;
     cout << "3. Selection sort" << endl;
+	cout << "4. Coctail sort" << endl;
 
     cout << "Choose sort: ";
 
@@ -38,6 +39,9 @@ void CSort::draw() {
     case 3:
         sort = SortSelection;
         break;
+	case 4:
+		sort = SortCoctail;
+		break;
     default:
         break;
     }
@@ -65,6 +69,43 @@ void CSort::draw() {
             if (event.key.code == Keyboard::Escape)
                 window.close();
         }
+		//coctail sort
+		if (sort == SortCoctail) {
+			if (!end) {
+				RectangleShape tmp;
+				int left = 0;
+				int right = size - 1;
+				while (left <= right) {
+					for (int i = right; i > left; --i) {
+						if (rects[i - 1].getSize().y > rects[i].getSize().y) {
+							tmp.setSize(rects[i].getSize());
+							rects[i].setSize(rects[i - 1].getSize());
+							rects[i - 1].setSize(tmp.getSize());
+							window.clear();
+							for (auto i = 0; i < size; i++) {
+								window.draw(rects[i]);
+							}
+							window.display();
+						}					
+					}
+					++left;
+					for (int i = left; i < right; i++) {
+						if (rects[i].getSize().y > rects[i + 1].getSize().y) {
+							tmp.setSize(rects[i].getSize());
+							rects[i].setSize(rects[i + 1].getSize());
+							rects[i + 1].setSize(tmp.getSize());
+							window.clear();
+							for (auto i = 0; i < size; i++) {
+								window.draw(rects[i]);
+							}
+							window.display();
+						}
+					}
+					--right;
+				}		
+			}
+		}
+
         //selection sort
         if (sort == SortSelection) {
             if (!end) {

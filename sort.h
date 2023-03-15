@@ -1,9 +1,11 @@
 #pragma once
+#include "main.h"
 
 enum Sort {
     SortBubble = 1,
     SortInsertion,
     SortSelection,
+	SortCoctail,
     SortMax
 };
 
